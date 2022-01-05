@@ -50,16 +50,16 @@ sjoined_permits = gdf_permits.sjoin(wards,how="inner",predicate='within')
 
 grouped_permits = sjoined_permits.groupby("ward").size()
 df = grouped_permits.to_frame().reset_index()
-df.columns = ['ward', 'Permit Count']
+df.columns = ['Ward', 'Permit Count']
 
-wards = wards.merge(df,how='left',on='ward').fillna(0).sort_values('ward')
+wards = wards.merge(df,how='left',on='Ward').fillna(0).sort_values('Ward')
 
-permit_wards = wards[['ward','Permit Count']].copy()
+permit_wards = wards[['Ward','Permit Count']].copy()
 
-permit_wards['ward'] = permit_wards['ward'].astype(int)
+permit_wards['Ward'] = permit_wards['Ward'].astype(int)
 permit_wards['Permit Count'] = permit_wards['Permit Count'].astype(int)
-permit_wards = permit_wards.sort_values('ward')
-permit_wards = permit_wards.rename(columns={'ward':'Ward'})
+permit_wards = permit_wards.sort_values('Ward')
+#permit_wards = permit_wards.rename(columns={'ward':'Ward'})
 output_csv = permit_wards.to_csv(index=False)
 
 fig = go.Figure(data=[go.Table(
