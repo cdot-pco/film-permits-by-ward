@@ -94,7 +94,7 @@ map_chicago = folium.Map(location=[latitude, longitude], zoom_start=10)
 folium.Choropleth(geo_data = geojson_file,
                   name = "choropleth",
                   data = wards,
-                  columns = ['ward','Permit Count'],
+                  columns = ['Ward','Permit Count'],
                   key_on = 'feature.properties.ward',
                   fill_color = 'YlOrRd',
                   fill_opacity = 0.6,
