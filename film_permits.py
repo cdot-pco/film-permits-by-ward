@@ -108,7 +108,7 @@ style_function = lambda x: {'fillColor': '#ffffff',
                            'weight': 0.1}
 
 folium.GeoJson(wards,style_function=style_function,
-               tooltip=folium.features.GeoJsonTooltip(fields=['ward','Permit Count'],aliases=['Ward','Number of Permits'])).add_to(map_chicago)
+               tooltip=folium.features.GeoJsonTooltip(fields=['Ward','Permit Count'],aliases=['Ward','Number of Permits'])).add_to(map_chicago)
 
 st.write("")
 st.plotly_chart(fig,use_container_width=True)
