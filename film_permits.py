@@ -43,12 +43,13 @@ gdf_permits = gpd.GeoDataFrame(perm_data,geometry=gpd.points_from_xy(perm_data.L
 
 geojson_file = 'https://data.cityofchicago.org/resource/k9yb-bpqx.geojson'
 wards = gpd.read_file(geojson_file)
+wards = wards.rename(columns={'ward':'Ward'})
 
 gdf_permits = gdf_permits.set_crs(epsg=4326)
 
 sjoined_permits = gdf_permits.sjoin(wards,how="inner",predicate='within')
 
-grouped_permits = sjoined_permits.groupby("ward").size()
+grouped_permits = sjoined_permits.groupby("Ward").size()
 df = grouped_permits.to_frame().reset_index()
 df.columns = ['Ward', 'Permit Count']
 
@@ -59,7 +60,6 @@ permit_wards = wards[['Ward','Permit Count']].copy()
 permit_wards['Ward'] = permit_wards['Ward'].astype(int)
 permit_wards['Permit Count'] = permit_wards['Permit Count'].astype(int)
 permit_wards = permit_wards.sort_values('Ward')
-#permit_wards = permit_wards.rename(columns={'ward':'Ward'})
 output_csv = permit_wards.to_csv(index=False)
 
 fig = go.Figure(data=[go.Table(
